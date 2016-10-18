@@ -11,20 +11,9 @@ public class Ticket {
     private Date resolvedDate;
     private String resolution;
 
-    static int staticTicketIDCounter = 1;
-    protected static void readTicketIDMethod() {
-        try {staticTicketIDCounter = readTicketIDCounter();}
-        catch (Exception ex) {
-            System.out.println("Sorry, there was an error");
-        }
-    }
-
-    protected static void writeTickedIDMethod(){
-        try {writeTicketIDCounter();}
-        catch (Exception ex) {
-            System.out.println("Sorry, there was an error");
-        }
-    }
+    //STATIC Counter - accessible to all Ticket objects.
+    //If any Ticket object modifies this counter, all Ticket objects will have the modified value
+    private static int staticTicketIDCounter = 1;
 
     //The ID for each ticket - instance variable. Each Ticket will have it's own ticketID variable
     protected int ticketID;
@@ -36,15 +25,8 @@ public class Ticket {
         this.dateReported = date;
         this.resolvedDate = rDate;
         this.resolution = resolution;
-        readTicketIDMethod();
         this.ticketID = staticTicketIDCounter;
-        writeTickedIDMethod();
-    }
-
-    protected static void writeTicketIDCounter() throws Exception{
-        FileWriter output = new FileWriter("current_ticketID.txt");
-        output.write(staticTicketIDCounter);
-        output.close();
+        staticTicketIDCounter++;
     }
 
     private static int readTicketIDCounter() throws Exception {
